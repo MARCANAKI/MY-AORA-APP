@@ -16,6 +16,7 @@
         "foregroundImage": "./assets/images/logo-small.png",
         "backgroundColor": "#ffffff"
       },
+      "package": "com.jsm.aorapp",
       "edgeToEdgeEnabled": true
     },
     "web": {
