@@ -34,10 +34,22 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      [
+       "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ],
+  
+
+      
+      "expo-audio"
     ],
     "experiments": {
       "typedRoutes": true
     }
+    
   }
 }
