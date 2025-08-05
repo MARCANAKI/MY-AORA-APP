@@ -8,7 +8,7 @@ import { icons } from '@/constants';
 import { useGlobalContext } from '@/context/GlobalProvider';
 import { createVideo } from '@/lib/appwrite';
 import { ResizeMode, Video } from 'expo-av';
-import * as DocumentPicker from 'expo-document-picker';
+import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import { View } from 'react-native-animatable';
 
@@ -24,12 +24,11 @@ const Create = () => {
   })
 
   const openPicker = async (selectType) => {
-    const result = await DocumentPicker.getDocumentAsync
-    ({
-      type: selectType === 'image'
-      ? ['image/png', 'image/jpg']
-      : ['image/mp4', 'video/gif']
-    })
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: selectType === 'image' ? ImagePicker.MediaTypeOptions.Images : ImagePicker.MediaTypeOptions.Videos,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
     if(!result.canceled) {
       if(selectType === 'image') {
@@ -43,7 +42,7 @@ const Create = () => {
   }
 
   const submit = async () => {
-    if(form.prompt || !form.title || !form.thumbnail || form.video) {
+    if(!form.prompt || !form.title || !form.thumbnail || !form.video) {
       return Alert.alert('Please fill in all the fields')
     }
 
@@ -97,6 +96,7 @@ const Create = () => {
                 source={{uri: form.video.uri}}
                 className='w-full h-64 rounded-2xl'
                 resizeMode={ResizeMode.COVER}
+                style={{height: '256', width: "100%"}}
               />
             ) : (
               <View className='w-full h-40 px-4 bg-black-200 rounded-2xl justify-center items-center'>
