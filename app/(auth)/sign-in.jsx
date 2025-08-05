@@ -8,9 +8,11 @@ import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { images } from '../../constants';
 
-import { signIn } from '@/lib/appwrite';
+import { useGlobalContext } from '@/context/GlobalProvider';
+import { getCurrentUser, signIn } from '@/lib/appwrite';
 
 const SignIn = () => {
+  const {setUser, setIsLoggedIn} = useGlobalContext();
 
   const router = useRouter();
   const [form, setForm] = useState({
@@ -32,7 +34,10 @@ const SignIn = () => {
       await signIn(form.email, form.password,)
       
 
-      // set it to global state...
+      const result = await getCurrentUser();
+
+      setUser(result);
+      setIsLoggedIn(true);
 
       router.replace('/(tabs)/home')
     } catch (error) {

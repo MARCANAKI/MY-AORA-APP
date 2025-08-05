@@ -10,13 +10,13 @@ import { searchPosts } from '@/lib/appwrite';
 import { useLocalSearchParams } from 'expo-router';
 
 const Search = () => {
-  const { query } = useLocalSearchParams
+  const { query } = useLocalSearchParams()
   const { data: posts, isLoading, refetch } = useAppwrite( () => searchPosts(query)
 );
 
   useEffect(() => {
     refetch()
-  }, [query])
+  }, [])
 
   return (
     <SafeAreaView className="bg-primary h-full">
