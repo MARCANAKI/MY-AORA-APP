@@ -25,14 +25,13 @@ const Create = () => {
 
   const openPicker = async (selectType) => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: selectType === 'image' ? ImagePicker.MediaTypeOptions.Images : ImagePicker.MediaTypeOptions.Videos,
-      aspect: [4, 3],
-      quality: 1,
+      mediaTypes: selectType === 'image' ? ['images'] : ['videos'],
     });
 
     if(!result.canceled) {
       if(selectType === 'image') {
         setForm({...form, thumbnail: result.assets[0] })
+        console.log(result.assets[0])
       }
 
       if(selectType === 'video') {
@@ -58,6 +57,8 @@ const Create = () => {
       router.push('/(tabs)/home')
     } catch (error) {
       Alert.alert('Error', error.message)
+      console.log('Error', error.message)
+      console.log('Error raw', error)
     } finally {
       setForm({
        title: '',
